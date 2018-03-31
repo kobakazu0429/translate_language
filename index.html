@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>いろんな言葉に翻訳！</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container-fluid" id="app">
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-sm-5 col-xs-12">
+          <div class="box" id="sl">
+            <form onsubmit="return false;">
+              <div class="form-group">
+                <input type="text" class="form-control" id="text" placeholder="翻訳したい言葉を入れてね">
+              </div>
+              <div class="form-group">
+                <select class="custom-select" id="language">
+                  <option disabled value="">言語を選んでね</option>
+                  <option>日本語</option>
+                  <option>英語</option>
+                  <option>韓国語</option>
+                  <option>中国語</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-outline-info mb-2" onclick="translater();">翻訳する</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card-columns">
+          <div class="card" v-for="item in items">
+            <h3 class="card-header">{{ item.targetLanguage }}</h3>
+            <div class="card-body">
+              <h4 class="card-title" :id="item.targetLanguageId">{{ item.translated}}</h4>
+              <button class="button float-right" @click="copy(item.targetLanguageId)"><i class="far fa-copy"></i>コピーする</button>
+              <a class="button float-right" :href="'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=' + item.translated + '&tl=' + item.targetLanguageId"><i class="fas fa-volume-up"></i>聞く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+    axios.get('https://script.google.com/macros/s/AKfycbzKSfGO96ACv6s_0z7ZWeqwXMTv2h-IM-iJIUgj_19To_hwKjSp/exec?text=こんにちは&sourceLanguage=ja')
+    .then(function(response) {
+      vue(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    function vue(res) {
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          items: res
+        },
+        methods: {
+          copy: function(id) {
+            var copyTarget = document.getElementById(id);
+
+          // document.execCommand("copy");
+          console.log(copyTarget);
+          console.log(copyTarget.textContent);
+        }
+      }
+    });
+    }
+  </script>
+</body>
+</html>

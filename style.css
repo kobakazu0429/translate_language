@@ -1,0 +1,44 @@
+html {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+body {
+  padding-top: 4.5rem;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-bottom: 10px;
+}
+
+.box1 {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+}
+
+.card {
+  min-width: : 100px;
+  height: auto;
+}
+
+.button{
+    display: inline-block;
+    padding: .5em 1em;
+    margin-left: .7em;
+    margin-bottom: 1.25rem;
+    text-decoration: none;
+    color: #67c5ff;
+    border: dashed 1px #67c5ff;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+.button:hover {
+    border-style: dotted;
+    color: #679efd;
+}
